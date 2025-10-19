@@ -1,0 +1,206 @@
+2025-10-10 16:52:04,588 - INFO - Starting Flask API server on port 5001
+2025-10-10 16:52:04,602 - WARNING -  * Debugger is active!
+2025-10-10 16:52:04,606 - INFO -  * Debugger PIN: 128-881-807
+2025-10-10 16:52:04,702 - INFO - 127.0.0.1 - - [10/Oct/2025 16:52:04] "OPTIONS /api/analyze/ml HTTP/1.1" 200 -
+2025-10-10 16:52:04,711 - INFO - Starting fraud detection for job 665d8eff-75b3-47f4-b86a-56d073cf9400
+2025-10-10 16:52:04,711 - INFO - Job 665d8eff-75b3-47f4-b86a-56d073cf9400: Step 0 completed.
+2025-10-10 16:52:04,711 - INFO - 127.0.0.1 - - [10/Oct/2025 16:52:04] "POST /api/analyze/ml HTTP/1.1" 200 -
+2025-10-10 16:52:04,712 - INFO - Loading data from temp_upload.csv
+2025-10-10 16:52:04,797 - INFO - Using 3 columns out of 22 suggested
+2025-10-10 16:52:04,800 - INFO - Creating interaction features
+2025-10-10 16:52:04,800 - INFO - Job 665d8eff-75b3-47f4-b86a-56d073cf9400: Step 1 completed.
+2025-10-10 16:52:04,800 - INFO - Encoding categorical variables
+2025-10-10 16:52:04,801 - INFO - Low cardinality columns (2): ['Gender', 'Treatment_Country']
+2025-10-10 16:52:04,801 - INFO - High cardinality columns (0): []
+2025-10-10 16:52:04,812 - INFO - Job 665d8eff-75b3-47f4-b86a-56d073cf9400: Step 2 completed.
+2025-10-10 16:52:04,818 - INFO - Job 665d8eff-75b3-47f4-b86a-56d073cf9400: Step 3 completed.
+2025-10-10 16:52:04,818 - INFO - 
+=== Phase 1: Global Anomaly Detection ===
+2025-10-10 16:52:04,819 - INFO - Testing 8 CAE parameter combinations...
+2025-10-10 16:52:07,483 - INFO - 127.0.0.1 - - [10/Oct/2025 16:52:07] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:52:09,171 - INFO - 127.0.0.1 - - [10/Oct/2025 16:52:09] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:52:11,525 - INFO - 127.0.0.1 - - [10/Oct/2025 16:52:11] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:52:13,168 - INFO - 127.0.0.1 - - [10/Oct/2025 16:52:13] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:52:15,493 - INFO - 127.0.0.1 - - [10/Oct/2025 16:52:15] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:52:17,169 - INFO - 127.0.0.1 - - [10/Oct/2025 16:52:17] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:52:19,496 - INFO - 127.0.0.1 - - [10/Oct/2025 16:52:19] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:52:20,939 - WARNING - From C:\Users\703437524\Downloads\Final-FWA\fwa_env\Lib\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+2025-10-10 16:52:21,181 - INFO - 127.0.0.1 - - [10/Oct/2025 16:52:21] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:52:23,493 - INFO - 127.0.0.1 - - [10/Oct/2025 16:52:23] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:52:25,177 - INFO - 127.0.0.1 - - [10/Oct/2025 16:52:25] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:52:27,497 - INFO - 127.0.0.1 - - [10/Oct/2025 16:52:27] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:52:29,182 - INFO - 127.0.0.1 - - [10/Oct/2025 16:52:29] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:52:31,491 - INFO - 127.0.0.1 - - [10/Oct/2025 16:52:31] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:52:33,184 - INFO - 127.0.0.1 - - [10/Oct/2025 16:52:33] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:52:35,488 - INFO - 127.0.0.1 - - [10/Oct/2025 16:52:35] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:52:37,171 - INFO - 127.0.0.1 - - [10/Oct/2025 16:52:37] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:52:39,496 - INFO - 127.0.0.1 - - [10/Oct/2025 16:52:39] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:52:41,173 - INFO - 127.0.0.1 - - [10/Oct/2025 16:52:41] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:52:43,553 - INFO - 127.0.0.1 - - [10/Oct/2025 16:52:43] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:52:45,176 - INFO - 127.0.0.1 - - [10/Oct/2025 16:52:45] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:52:47,490 - INFO - 127.0.0.1 - - [10/Oct/2025 16:52:47] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:52:49,171 - INFO - 127.0.0.1 - - [10/Oct/2025 16:52:49] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:52:51,492 - INFO - 127.0.0.1 - - [10/Oct/2025 16:52:51] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:52:53,167 - INFO - 127.0.0.1 - - [10/Oct/2025 16:52:53] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:52:55,495 - INFO - 127.0.0.1 - - [10/Oct/2025 16:52:55] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:53:16,167 - INFO - 127.0.0.1 - - [10/Oct/2025 16:53:16] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:54:16,508 - INFO - 127.0.0.1 - - [10/Oct/2025 16:54:16] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:54:59,914 - INFO - 127.0.0.1 - - [10/Oct/2025 16:54:59] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:55:01,037 - INFO - 127.0.0.1 - - [10/Oct/2025 16:55:01] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:55:03,172 - INFO - 127.0.0.1 - - [10/Oct/2025 16:55:03] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:55:05,488 - INFO - 127.0.0.1 - - [10/Oct/2025 16:55:05] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:55:07,182 - INFO - 127.0.0.1 - - [10/Oct/2025 16:55:07] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:55:09,479 - INFO - 127.0.0.1 - - [10/Oct/2025 16:55:09] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:55:11,175 - INFO - 127.0.0.1 - - [10/Oct/2025 16:55:11] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:55:13,491 - INFO - 127.0.0.1 - - [10/Oct/2025 16:55:13] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:55:15,173 - INFO - 127.0.0.1 - - [10/Oct/2025 16:55:15] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:55:16,521 - INFO - Best CAE params: {'hidden_dim': 64, 'latent_dim': 16, 'learning_rate': 0.001} (Val Loss: 0.0001)
+2025-10-10 16:55:16,521 - INFO - Training final CAE model...
+2025-10-10 16:55:17,490 - INFO - 127.0.0.1 - - [10/Oct/2025 16:55:17] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:55:19,169 - INFO - 127.0.0.1 - - [10/Oct/2025 16:55:19] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:55:21,494 - INFO - 127.0.0.1 - - [10/Oct/2025 16:55:21] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:55:23,179 - INFO - 127.0.0.1 - - [10/Oct/2025 16:55:23] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:55:25,495 - INFO - 127.0.0.1 - - [10/Oct/2025 16:55:25] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:55:27,183 - INFO - 127.0.0.1 - - [10/Oct/2025 16:55:27] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:55:29,492 - INFO - 127.0.0.1 - - [10/Oct/2025 16:55:29] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:55:31,175 - INFO - 127.0.0.1 - - [10/Oct/2025 16:55:31] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:55:33,487 - INFO - 127.0.0.1 - - [10/Oct/2025 16:55:33] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:55:35,171 - INFO - 127.0.0.1 - - [10/Oct/2025 16:55:35] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:55:37,485 - INFO - 127.0.0.1 - - [10/Oct/2025 16:55:37] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:55:39,217 - INFO - 127.0.0.1 - - [10/Oct/2025 16:55:39] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:55:41,485 - INFO - 127.0.0.1 - - [10/Oct/2025 16:55:41] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:55:43,165 - INFO - 127.0.0.1 - - [10/Oct/2025 16:55:43] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:55:45,484 - INFO - 127.0.0.1 - - [10/Oct/2025 16:55:45] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:55:47,165 - INFO - 127.0.0.1 - - [10/Oct/2025 16:55:47] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:55:49,489 - INFO - 127.0.0.1 - - [10/Oct/2025 16:55:49] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:55:51,165 - INFO - 127.0.0.1 - - [10/Oct/2025 16:55:51] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:55:53,505 - INFO - 127.0.0.1 - - [10/Oct/2025 16:55:53] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:55:55,191 - INFO - 127.0.0.1 - - [10/Oct/2025 16:55:55] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:55:57,508 - INFO - 127.0.0.1 - - [10/Oct/2025 16:55:57] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:55:59,185 - INFO - 127.0.0.1 - - [10/Oct/2025 16:55:59] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:56:01,492 - INFO - 127.0.0.1 - - [10/Oct/2025 16:56:01] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:56:16,199 - INFO - 127.0.0.1 - - [10/Oct/2025 16:56:16] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:56:30,213 - INFO - CAE reconstruction scores (ECDF) - Mean: 0.501, Std: 0.289
+2025-10-10 16:56:30,213 - INFO - 
+=== Phase 2: Clustering ===
+2025-10-10 16:56:31,652 - INFO - Clustering with HDBSCAN on latent space...
+2025-10-10 16:56:33,492 - INFO - HDBSCAN found 105 clusters and 2944 noise points
+2025-10-10 16:56:33,492 - INFO - 
+=== Phase 3: Local Anomaly Detection ===
+2025-10-10 16:56:33,494 - INFO - Processing cluster 0 (85 samples)
+2025-10-10 16:56:34,216 - INFO - Processing cluster 1 (89 samples)
+2025-10-10 16:56:34,904 - INFO - Processing cluster 2 (992 samples)
+2025-10-10 16:56:35,653 - INFO - Processing cluster 3 (85 samples)
+2025-10-10 16:56:36,292 - INFO - Processing cluster 4 (30 samples)
+2025-10-10 16:56:37,113 - INFO - Processing cluster 5 (77 samples)
+2025-10-10 16:56:37,830 - INFO - Processing cluster 6 (96 samples)
+2025-10-10 16:56:38,515 - INFO - Processing cluster 7 (83 samples)
+2025-10-10 16:56:39,143 - INFO - Processing cluster 8 (97 samples)
+2025-10-10 16:56:39,849 - INFO - Processing cluster 9 (97 samples)
+2025-10-10 16:56:40,518 - INFO - Processing cluster 10 (106 samples)
+2025-10-10 16:56:41,207 - INFO - Processing cluster 11 (132 samples)
+2025-10-10 16:56:41,871 - INFO - Processing cluster 12 (119 samples)
+2025-10-10 16:56:42,607 - INFO - Processing cluster 13 (49 samples)
+2025-10-10 16:56:43,283 - INFO - Processing cluster 14 (133 samples)
+2025-10-10 16:56:43,951 - INFO - Processing cluster 15 (34 samples)
+2025-10-10 16:56:44,688 - INFO - Processing cluster 16 (249 samples)
+2025-10-10 16:56:45,448 - INFO - Processing cluster 17 (123 samples)
+2025-10-10 16:56:46,149 - INFO - Processing cluster 18 (40 samples)
+2025-10-10 16:56:46,776 - INFO - Processing cluster 19 (31 samples)
+2025-10-10 16:56:47,483 - INFO - Processing cluster 20 (37 samples)
+2025-10-10 16:56:48,207 - INFO - Processing cluster 21 (35 samples)
+2025-10-10 16:56:48,930 - INFO - Processing cluster 22 (43 samples)
+2025-10-10 16:56:49,567 - INFO - Processing cluster 23 (256 samples)
+2025-10-10 16:56:50,362 - INFO - Processing cluster 24 (31 samples)
+2025-10-10 16:56:51,050 - INFO - Processing cluster 25 (32 samples)
+2025-10-10 16:56:51,721 - INFO - Processing cluster 26 (30 samples)
+2025-10-10 16:56:52,340 - INFO - Processing cluster 27 (30 samples)
+2025-10-10 16:56:53,065 - INFO - Processing cluster 28 (33 samples)
+2025-10-10 16:56:53,715 - INFO - Processing cluster 29 (38 samples)
+2025-10-10 16:56:54,400 - INFO - Processing cluster 30 (33 samples)
+2025-10-10 16:56:55,064 - INFO - Processing cluster 31 (30 samples)
+2025-10-10 16:56:55,749 - INFO - Processing cluster 32 (41 samples)
+2025-10-10 16:56:56,363 - INFO - Processing cluster 33 (30 samples)
+2025-10-10 16:56:56,923 - INFO - Processing cluster 34 (82 samples)
+2025-10-10 16:56:57,470 - INFO - Processing cluster 35 (34 samples)
+2025-10-10 16:56:58,156 - INFO - Processing cluster 36 (39 samples)
+2025-10-10 16:56:58,802 - INFO - Processing cluster 37 (32 samples)
+2025-10-10 16:56:59,447 - INFO - Processing cluster 38 (31 samples)
+2025-10-10 16:57:00,020 - INFO - Processing cluster 39 (37 samples)
+2025-10-10 16:57:00,706 - INFO - Processing cluster 40 (32 samples)
+2025-10-10 16:57:01,343 - INFO - Processing cluster 41 (35 samples)
+2025-10-10 16:57:02,001 - INFO - Processing cluster 42 (33 samples)
+2025-10-10 16:57:02,626 - INFO - Processing cluster 43 (33 samples)
+2025-10-10 16:57:03,272 - INFO - Processing cluster 44 (31 samples)
+2025-10-10 16:57:03,882 - INFO - Processing cluster 45 (30 samples)
+2025-10-10 16:57:04,367 - INFO - Processing cluster 46 (38 samples)
+2025-10-10 16:57:05,017 - INFO - Processing cluster 47 (34 samples)
+2025-10-10 16:57:05,665 - INFO - Processing cluster 48 (34 samples)
+2025-10-10 16:57:06,298 - INFO - Processing cluster 49 (54 samples)
+2025-10-10 16:57:06,873 - INFO - Processing cluster 50 (39 samples)
+2025-10-10 16:57:07,368 - INFO - Processing cluster 51 (31 samples)
+2025-10-10 16:57:08,055 - INFO - Processing cluster 52 (97 samples)
+2025-10-10 16:57:08,721 - INFO - Processing cluster 53 (32 samples)
+2025-10-10 16:57:09,355 - INFO - Processing cluster 54 (34 samples)
+2025-10-10 16:57:09,944 - INFO - Processing cluster 55 (32 samples)
+2025-10-10 16:57:10,545 - INFO - Processing cluster 56 (32 samples)
+2025-10-10 16:57:11,169 - INFO - Processing cluster 57 (43 samples)
+2025-10-10 16:57:11,792 - INFO - Processing cluster 58 (37 samples)
+2025-10-10 16:57:12,396 - INFO - Processing cluster 59 (40 samples)
+2025-10-10 16:57:13,065 - INFO - Processing cluster 60 (30 samples)
+2025-10-10 16:57:13,679 - INFO - Processing cluster 61 (30 samples)
+2025-10-10 16:57:14,243 - INFO - Processing cluster 62 (32 samples)
+2025-10-10 16:57:14,838 - INFO - Processing cluster 63 (33 samples)
+2025-10-10 16:57:15,499 - INFO - Processing cluster 64 (30 samples)
+2025-10-10 16:57:16,155 - INFO - Processing cluster 65 (31 samples)
+2025-10-10 16:57:16,665 - INFO - 127.0.0.1 - - [10/Oct/2025 16:57:16] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 16:57:16,892 - INFO - Processing cluster 66 (32 samples)
+2025-10-10 16:57:17,409 - INFO - Processing cluster 67 (32 samples)
+2025-10-10 16:57:18,077 - INFO - Processing cluster 68 (32 samples)
+2025-10-10 16:57:18,719 - INFO - Processing cluster 69 (31 samples)
+2025-10-10 16:57:19,338 - INFO - Processing cluster 70 (128 samples)
+2025-10-10 16:57:19,950 - INFO - Processing cluster 71 (112 samples)
+2025-10-10 16:57:20,606 - INFO - Processing cluster 72 (31 samples)
+2025-10-10 16:57:21,210 - INFO - Processing cluster 73 (39 samples)
+2025-10-10 16:57:21,768 - INFO - Processing cluster 74 (31 samples)
+2025-10-10 16:57:22,413 - INFO - Processing cluster 75 (33 samples)
+2025-10-10 16:57:23,086 - INFO - Processing cluster 76 (84 samples)
+2025-10-10 16:57:23,728 - INFO - Processing cluster 77 (33 samples)
+2025-10-10 16:57:24,230 - INFO - Processing cluster 78 (211 samples)
+2025-10-10 16:57:24,830 - INFO - Processing cluster 79 (31 samples)
+2025-10-10 16:57:25,523 - INFO - Processing cluster 80 (112 samples)
+2025-10-10 16:57:26,197 - INFO - Processing cluster 81 (33 samples)
+2025-10-10 16:57:26,811 - INFO - Processing cluster 82 (224 samples)
+2025-10-10 16:57:27,539 - INFO - Processing cluster 83 (33 samples)
+2025-10-10 16:57:28,290 - INFO - Processing cluster 84 (34 samples)
+2025-10-10 16:57:29,042 - INFO - Processing cluster 85 (35 samples)
+2025-10-10 16:57:29,794 - INFO - Processing cluster 86 (235 samples)
+2025-10-10 16:57:30,591 - INFO - Processing cluster 87 (39 samples)
+2025-10-10 16:57:31,299 - INFO - Processing cluster 88 (34 samples)
+2025-10-10 16:57:34,352 - INFO - Processing cluster 89 (36 samples)
+2025-10-10 16:57:37,873 - INFO - Processing cluster 90 (32 samples)
+2025-10-10 16:57:40,563 - INFO - Processing cluster 91 (34 samples)
+2025-10-10 16:57:43,608 - INFO - Processing cluster 92 (32 samples)
+2025-10-10 16:57:46,705 - INFO - Processing cluster 93 (34 samples)
+2025-10-10 16:57:48,665 - INFO - Processing cluster 94 (36 samples)
+2025-10-10 16:57:49,519 - INFO - Processing cluster 95 (33 samples)
+2025-10-10 16:57:50,352 - INFO - Processing cluster 96 (36 samples)
+2025-10-10 16:57:51,105 - INFO - Processing cluster 97 (30 samples)
+2025-10-10 16:57:51,865 - INFO - Processing cluster 98 (194 samples)
+2025-10-10 16:57:52,745 - INFO - Processing cluster 99 (32 samples)
+2025-10-10 16:57:55,033 - INFO - Processing cluster 100 (34 samples)
+2025-10-10 16:57:55,789 - INFO - Processing cluster 101 (33 samples)
+2025-10-10 16:57:56,455 - INFO - Processing cluster 102 (43 samples)
+2025-10-10 16:57:57,085 - INFO - Processing cluster 103 (36 samples)
+2025-10-10 16:57:57,808 - INFO - Processing cluster 104 (102 samples)
+2025-10-10 16:57:58,522 - INFO - 
+=== Phase 4: Final Flagging (EXACT thresholds) ===
+2025-10-10 16:57:58,649 - INFO - Total anomalies flagged: 521
+2025-10-10 16:57:58,649 - INFO - Job 665d8eff-75b3-47f4-b86a-56d073cf9400: Step 4 completed.
+2025-10-10 16:57:58,649 - INFO - Generating explanations for 521 anomalies...
+2025-10-10 16:58:02,220 - INFO - Generated explanations for 521 anomalies
+2025-10-10 16:58:02,220 - INFO - Job 665d8eff-75b3-47f4-b86a-56d073cf9400: Step 5 completed.
+2025-10-10 16:58:02,237 - INFO - Job 665d8eff-75b3-47f4-b86a-56d073cf9400: Completed successfully.
+2025-10-10 16:58:16,187 - INFO - 127.0.0.1 - - [10/Oct/2025 16:58:16] "GET /api/status/665d8eff-75b3-47f4-b86a-56d073cf9400 HTTP/1.1" 200 -
+2025-10-10 17:18:51,028 - INFO -  * Detected change in 'C:\\Users\\703437524\\Downloads\\Final-FWA\\FWA-Back-Front-main\\Backend\\ML Layer\\newtest.py', reloading

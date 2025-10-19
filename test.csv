@@ -1,0 +1,11 @@
+claim_id,provider_id,provider_name,patient_id,service_date,procedure_code,diagnosis_code,billed_amount,allowed_amount,paid_amount,service_type,specialty
+CLAIM_001,PROV_A,General Hospital,PAT_01,2025-08-15,P_101,D_A,1200,1100,1000,Consultation,Cardiology
+CLAIM_002,PROV_B,City Clinic,PAT_02,2025-08-16,P_102,D_B,2500,2300,2200,Surgery,Orthopedics
+CLAIM_003,PROV_A,General Hospital,PAT_03,2025-08-17,P_103,D_C,800,750,700,Check-up,General Practice
+CLAIM_004,PROV_C,Wellness Center,PAT_04,2025-08-18,P_104,D_A,300,280,250,Therapy,Physical Therapy
+CLAIM_005,PROV_A,General Hospital,PAT_05,2025-08-19,P_101,D_B,1300,1200,1100,Consultation,Cardiology
+CLAIM_006,PROV_B,City Clinic,PAT_06,2025-08-20,P_105,D_D,5000,4800,2000,Specialized Test,Radiology
+CLAIM_007,PROV_A,General Hospital,PAT_07,2025-08-21,P_102,D_C,2800,2600,2500,Surgery,Orthopedics
+CLAIM_008,PROV_D,Suburban Medical,PAT_08,2025-08-22,P_106,D_E,15000,14000,13000,Emergency,Emergency Medicine
+CLAIM_009,PROV_A,General Hospital,PAT_09,2025-08-23,P_107,D_F,7500,7000,6500,MRI,Radiology
+CLAIM_010,PROV_E,Rural Health,PAT_10,2025-08-24,P_108,D_G,400,380,350,Vaccination,General Practice
