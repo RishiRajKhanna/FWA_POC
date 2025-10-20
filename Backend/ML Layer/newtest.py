@@ -4,6 +4,7 @@ warnings.filterwarnings('ignore')
 import os
 import sys
 import logging
+import joblib
 from typing import Dict, List, Tuple, Optional, Union, Any
 from dataclasses import dataclass
 from functools import lru_cache
@@ -1043,6 +1044,35 @@ class ExplainabilityEngine:
         )
         
         return analysis
+
+def export_model_artifacts(job_id, model, feature_encoder, scalers, base_path="ML Layer/exported_models"):
+    """Saves all model components for a given job ID."""
+    try:
+        export_path = os.path.join(base_path, job_id)
+        os.makedirs(export_path, exist_ok=True)
+        logger.info(f"Exporting model artifacts to {export_path}")
+
+        # 1. Save Keras Autoencoder
+        model_path = os.path.join(export_path, "autoencoder_model")
+        model.export(model_path)
+        logger.info(f"Saved Keras model to {model_path}")
+
+        # 2. Save Feature Encoder
+        fe_path = os.path.join(export_path, "feature_encoder.joblib")
+        joblib.dump(feature_encoder, fe_path)
+        logger.info(f"Saved feature encoder to {fe_path}")
+
+        # 3. Save Scalers
+        scalers_path = os.path.join(export_path, "scalers.joblib")
+        joblib.dump(scalers, scalers_path)
+        logger.info(f"Saved scalers to {scalers_path}")
+
+        logger.info(f"Successfully exported all artifacts for job {job_id}")
+        return True
+    except Exception as e:
+        logger.error(f"Failed to export model artifacts for job {job_id}: {e}", exc_info=True)
+        return False
+
 
 # ==================== MAIN PIPELINE ====================
 def run_pipeline():

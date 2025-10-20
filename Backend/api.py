@@ -76,7 +76,7 @@ Scenario21Analyzer = getattr(scenario21_module, 'Scenario21Analyzer')
 # Import ML layer components
 ml_layer_path = os.path.join(os.path.dirname(__file__), 'ML Layer')
 sys.path.insert(0, ml_layer_path)
-from newtest import run_pipeline_with_config, Config, DataProcessor, FeatureEncoder, AnomalyDetectionPipeline, ExplainabilityEngine
+from newtest import run_pipeline_with_config, Config, DataProcessor, FeatureEncoder, AnomalyDetectionPipeline, ExplainabilityEngine, export_model_artifacts
 
 
 app = Flask(__name__)
@@ -271,6 +271,18 @@ def run_fraud_detection(file_path, job_id):
                     "local_contamination": config.local_contamination
                 }
             }})
+
+            # Export model artifacts after successful run
+            scalers_to_save = {'main': scaler}
+            if cond_scaler is not None:
+                scalers_to_save['conditional'] = cond_scaler
+            export_model_artifacts(
+                job_id=job_id,
+                model=pipeline.cae.model,
+                feature_encoder=feature_encoder,
+                scalers=scalers_to_save
+            )
+
         except Exception as e:
             app.logger.error(f"Error creating business results for job {job_id}: {e}")
             traceback.print_exc()
