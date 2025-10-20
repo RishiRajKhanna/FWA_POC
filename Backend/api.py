@@ -265,7 +265,11 @@ def run_fraud_detection(file_path, job_id):
                 "job_id": job_id,
                 "anomalies_found": results['kpi']['total_anomalies'],
                 "model_version": "1.0", # Placeholder for now
-                "timestamp": datetime.now().isoformat()
+                "timestamp": datetime.now().isoformat(),
+                "thresholds": {
+                    "global_contamination": config.global_contamination,
+                    "local_contamination": config.local_contamination
+                }
             }})
         except Exception as e:
             app.logger.error(f"Error creating business results for job {job_id}: {e}")
@@ -455,7 +459,8 @@ def analyze_data():
                 "event_type": "rule_detection",
                 "scenario_id": 1,
                 "scenario_name": "Benefit Outlier Detection",
-                "anomalies_found": outliers_count
+                "anomalies_found": outliers_count,
+                "threshold": "z_score > 3.0"
             }})
             if outliers_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:50]):  # Show more results for better demo
@@ -486,7 +491,8 @@ def analyze_data():
                 "event_type": "rule_detection",
                 "scenario_id": 2,
                 "scenario_name": "Chemotherapy Gap Detection",
-                "anomalies_found": gap_count
+                "anomalies_found": gap_count,
+                "threshold": "gap_days > 1.5 * median_gap"
             }})
             if gap_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:12]):  # Show all gap results
@@ -517,7 +523,8 @@ def analyze_data():
                 "event_type": "rule_detection",
                 "scenario_id": 3,
                 "scenario_name": "Cross-Country Fraud Detection",
-                "anomalies_found": cross_country_count
+                "anomalies_found": cross_country_count,
+                "threshold": "service in multiple countries on same day"
             }})
             if cross_country_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:25]):  # Show more cross-country results
@@ -548,7 +555,8 @@ def analyze_data():
                 "event_type": "rule_detection",
                 "scenario_id": 4,
                 "scenario_name": "Sunday Claims Analysis",
-                "anomalies_found": sunday_count
+                "anomalies_found": sunday_count,
+                "threshold": "day_of_week == Sunday"
             }})
             if sunday_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:50]):  # Show more Sunday results
@@ -579,7 +587,8 @@ def analyze_data():
                 "event_type": "rule_detection",
                 "scenario_id": 5,
                 "scenario_name": "Multiple Claims Same Invoice",
-                "anomalies_found": duplicate_count
+                "anomalies_found": duplicate_count,
+                "threshold": "duplicate invoice_no_reference"
             }})
             if duplicate_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:30]):
@@ -610,7 +619,8 @@ def analyze_data():
                 "event_type": "rule_detection",
                 "scenario_id": 6,
                 "scenario_name": "Inpatient/Outpatient Same Date",
-                "anomalies_found": conflict_count
+                "anomalies_found": conflict_count,
+                "threshold": "inpatient and outpatient service on same day"
             }})
             if conflict_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:20]):
@@ -641,7 +651,8 @@ def analyze_data():
                 "event_type": "rule_detection",
                 "scenario_id": 7,
                 "scenario_name": "Provider Multi-Country",
-                "anomalies_found": multi_country_count
+                "anomalies_found": multi_country_count,
+                "threshold": "provider in > 3 countries"
             }})
             if multi_country_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:40]):
@@ -672,7 +683,8 @@ def analyze_data():
                 "event_type": "rule_detection",
                 "scenario_id": 8,
                 "scenario_name": "Multiple Provider Same Date",
-                "anomalies_found": overlapping_count
+                "anomalies_found": overlapping_count,
+                "threshold": "patient visiting > 2 providers on same day"
             }})
             if overlapping_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:35]):
@@ -703,7 +715,8 @@ def analyze_data():
                 "event_type": "rule_detection",
                 "scenario_id": 9,
                 "scenario_name": "Member Multi-Currency",
-                "anomalies_found": multi_currency_count
+                "anomalies_found": multi_currency_count,
+                "threshold": "member with claims in >= 3 currencies"
             }})
             if multi_currency_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:25]):
@@ -734,7 +747,8 @@ def analyze_data():
                 "event_type": "rule_detection",
                 "scenario_id": 10,
                 "scenario_name": "Gender-Procedure Mismatch",
-                "anomalies_found": gender_mismatch_count
+                "anomalies_found": gender_mismatch_count,
+                "threshold": "gender-specific procedure on wrong gender"
             }})
             if gender_mismatch_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:30]):
@@ -765,7 +779,8 @@ def analyze_data():
                 "event_type": "rule_detection",
                 "scenario_id": 11,
                 "scenario_name": "Early Invoice Date",
-                "anomalies_found": early_invoice_count
+                "anomalies_found": early_invoice_count,
+                "threshold": "invoice date < treatment from date"
             }})
             if early_invoice_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:25]):
@@ -796,7 +811,8 @@ def analyze_data():
                 "event_type": "rule_detection",
                 "scenario_id": 12,
                 "scenario_name": "Adult Pediatric Diagnosis",
-                "anomalies_found": adult_pediatric_count
+                "anomalies_found": adult_pediatric_count,
+                "threshold": "age >= 18 and pediatric diagnosis"
             }})
             if adult_pediatric_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:20]):
@@ -827,7 +843,8 @@ def analyze_data():
                 "event_type": "rule_detection",
                 "scenario_id": 13,
                 "scenario_name": "Multiple Payee Types",
-                "anomalies_found": multiple_payee_count
+                "anomalies_found": multiple_payee_count,
+                "threshold": "member with > 1 payee type on same day"
             }})
             if multiple_payee_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:15]):
@@ -858,7 +875,8 @@ def analyze_data():
                 "event_type": "rule_detection",
                 "scenario_id": 14,
                 "scenario_name": "Excessive Diagnoses",
-                "anomalies_found": excessive_diagnoses_count
+                "anomalies_found": excessive_diagnoses_count,
+                "threshold": "> 8 diagnoses on same day"
             }})
             if excessive_diagnoses_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:18]):
@@ -894,7 +912,8 @@ def analyze_data():
                 "event_type": "rule_detection",
                 "scenario_id": 15,
                 "scenario_name": "Hospital Benefits from Non-Hospital Providers",
-                "anomalies_found": hospital_benefit_count
+                "anomalies_found": hospital_benefit_count,
+                "threshold": "non-hospital with hospital benefit codes"
             }})
             if hospital_benefit_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:25]):
@@ -930,7 +949,8 @@ def analyze_data():
                 "event_type": "rule_detection",
                 "scenario_id": 16,
                 "scenario_name": "Paid Claims from Veterinary Providers",
-                "anomalies_found": veterinary_count
+                "anomalies_found": veterinary_count,
+                "threshold": "claim from veterinary provider"
             }})
             if veterinary_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:15]):
@@ -966,7 +986,8 @@ def analyze_data():
                 "event_type": "rule_detection",
                 "scenario_id": 17,
                 "scenario_name": "Multiple MRI/CT Same Day",
-                "anomalies_found": multiple_mri_count
+                "anomalies_found": multiple_mri_count,
+                "threshold": "> 1 MRI/CT scan on same day for same diagnosis"
             }})
             if multiple_mri_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:20]):
@@ -1002,7 +1023,8 @@ def analyze_data():
                 "event_type": "rule_detection",
                 "scenario_id": 18,
                 "scenario_name": "Placeholder Scenario",
-                "anomalies_found": placeholder_count
+                "anomalies_found": placeholder_count,
+                "threshold": "N/A"
             }})
             # No anomalies generated for placeholder scenario
         
@@ -1024,7 +1046,8 @@ def analyze_data():
                 "event_type": "rule_detection",
                 "scenario_id": 19,
                 "scenario_name": "Multiple Screenings Same Year",
-                "anomalies_found": multiple_screenings_count
+                "anomalies_found": multiple_screenings_count,
+                "threshold": "> 1 screening of same type in a year"
             }})
             if multiple_screenings_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:22]):
@@ -1060,7 +1083,8 @@ def analyze_data():
                 "event_type": "rule_detection",
                 "scenario_id": 20,
                 "scenario_name": "Dialysis Without Kidney Diagnosis",
-                "anomalies_found": dialysis_count
+                "anomalies_found": dialysis_count,
+                "threshold": "dialysis claim without kidney diagnosis"
             }})
             if dialysis_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:18]):
@@ -1096,7 +1120,8 @@ def analyze_data():
                 "event_type": "rule_detection",
                 "scenario_id": 21,
                 "scenario_name": "Unusual Dentistry Claims",
-                "anomalies_found": dentistry_count
+                "anomalies_found": dentistry_count,
+                "threshold": "dentistry claim with non-dental diagnosis"
             }})
             if dentistry_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:16]):
@@ -1132,7 +1157,8 @@ def analyze_data():
                 "event_type": "rule_detection",
                 "scenario_id": 22,
                 "scenario_name": "Invalid Migraine Claims",
-                "anomalies_found": migraine_count
+                "anomalies_found": migraine_count,
+                "threshold": "migraine diagnosis with invalid benefit code"
             }})
             if migraine_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:14]):
