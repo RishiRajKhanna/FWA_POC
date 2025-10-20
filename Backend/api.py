@@ -83,8 +83,31 @@ app = Flask(__name__)
 CORS(app)
 
 # Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+class JsonFormatter(logging.Formatter):
+    def format(self, record):
+        log_record = {
+            "timestamp": self.formatTime(record, self.datefmt),
+            "level": record.levelname,
+            "message": record.getMessage(),
+        }
+        if hasattr(record, 'extra_info'):
+            log_record.update(record.extra_info)
+        return json.dumps(log_record)
+
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+# Prevent duplicate handlers if reloaded
+if not logger.handlers:
+    # Console handler for general server logs
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+    logger.addHandler(console_handler)
+
+    # Audit log file handler for structured JSON logs
+    audit_handler = logging.FileHandler('audit.log', mode='a')
+    audit_handler.setFormatter(JsonFormatter())
+    logger.addHandler(audit_handler)
 
 # Directory for temporary file storage
 UPLOAD_FOLDER = os.path.dirname(os.path.abspath(__file__))
@@ -237,15 +260,24 @@ def run_fraud_detection(file_path, job_id):
             status.set_results(results)
             status.status = 'completed'
             app.logger.info(f"Job {job_id}: Completed successfully.")
+            logger.info("ML analysis finished.", extra={'extra_info': {
+                "event_type": "ml_detection_end",
+                "job_id": job_id,
+                "anomalies_found": results['kpi']['total_anomalies'],
+                "model_version": "1.0", # Placeholder for now
+                "timestamp": datetime.now().isoformat()
+            }})
         except Exception as e:
             app.logger.error(f"Error creating business results for job {job_id}: {e}")
             traceback.print_exc()
             status.set_error(f"Result creation failed: {str(e)}")
+            logger.error(f"ML analysis failed for job {job_id}", extra={'extra_info': {"event_type": "error", "job_id": job_id, "error": str(e)}})
 
     except Exception as e:
         app.logger.error(f"Error in fraud detection for job {job_id}: {e}")
         traceback.print_exc()
         status.set_error(f"Analysis failed: {str(e)}")
+        logger.error(f"ML analysis failed for job {job_id}", extra={'extra_info': {"event_type": "error", "job_id": job_id, "error": str(e)}})
 
 def create_business_results(out_df, flagged_df, root_cause_analysis, global_explanations, local_explanations, feature_details):
     """Convert technical results into business-friendly format"""
@@ -419,6 +451,12 @@ def analyze_data():
                 "name": "Benefit Outlier Detection",
                 "count": outliers_count
             }
+            logger.info("Scenario 1 finished.", extra={'extra_info': {
+                "event_type": "rule_detection",
+                "scenario_id": 1,
+                "scenario_name": "Benefit Outlier Detection",
+                "anomalies_found": outliers_count
+            }})
             if outliers_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:50]):  # Show more results for better demo
                     anomalies.append({
@@ -444,6 +482,12 @@ def analyze_data():
                 "name": "Chemotherapy Gap Detection",
                 "count": gap_count
             }
+            logger.info("Scenario 2 finished.", extra={'extra_info': {
+                "event_type": "rule_detection",
+                "scenario_id": 2,
+                "scenario_name": "Chemotherapy Gap Detection",
+                "anomalies_found": gap_count
+            }})
             if gap_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:12]):  # Show all gap results
                     anomalies.append({
@@ -469,6 +513,12 @@ def analyze_data():
                 "name": "Cross-Country Fraud Detection",
                 "count": cross_country_count
             }
+            logger.info("Scenario 3 finished.", extra={'extra_info': {
+                "event_type": "rule_detection",
+                "scenario_id": 3,
+                "scenario_name": "Cross-Country Fraud Detection",
+                "anomalies_found": cross_country_count
+            }})
             if cross_country_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:25]):  # Show more cross-country results
                     anomalies.append({
@@ -494,6 +544,12 @@ def analyze_data():
                 "name": "Sunday Claims Analysis",
                 "count": sunday_count
             }
+            logger.info("Scenario 4 finished.", extra={'extra_info': {
+                "event_type": "rule_detection",
+                "scenario_id": 4,
+                "scenario_name": "Sunday Claims Analysis",
+                "anomalies_found": sunday_count
+            }})
             if sunday_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:50]):  # Show more Sunday results
                     anomalies.append({
@@ -519,6 +575,12 @@ def analyze_data():
                 "name": "Multiple Claims Same Invoice",
                 "count": duplicate_count
             }
+            logger.info("Scenario 5 finished.", extra={'extra_info': {
+                "event_type": "rule_detection",
+                "scenario_id": 5,
+                "scenario_name": "Multiple Claims Same Invoice",
+                "anomalies_found": duplicate_count
+            }})
             if duplicate_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:30]):
                     anomalies.append({
@@ -544,6 +606,12 @@ def analyze_data():
                 "name": "Inpatient/Outpatient Same Date",
                 "count": conflict_count
             }
+            logger.info("Scenario 6 finished.", extra={'extra_info': {
+                "event_type": "rule_detection",
+                "scenario_id": 6,
+                "scenario_name": "Inpatient/Outpatient Same Date",
+                "anomalies_found": conflict_count
+            }})
             if conflict_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:20]):
                     anomalies.append({
@@ -569,6 +637,12 @@ def analyze_data():
                 "name": "Provider Multi-Country",
                 "count": multi_country_count
             }
+            logger.info("Scenario 7 finished.", extra={'extra_info': {
+                "event_type": "rule_detection",
+                "scenario_id": 7,
+                "scenario_name": "Provider Multi-Country",
+                "anomalies_found": multi_country_count
+            }})
             if multi_country_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:40]):
                     anomalies.append({
@@ -594,6 +668,12 @@ def analyze_data():
                 "name": "Multiple Provider Same Date",
                 "count": overlapping_count
             }
+            logger.info("Scenario 8 finished.", extra={'extra_info': {
+                "event_type": "rule_detection",
+                "scenario_id": 8,
+                "scenario_name": "Multiple Provider Same Date",
+                "anomalies_found": overlapping_count
+            }})
             if overlapping_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:35]):
                     anomalies.append({
@@ -619,6 +699,12 @@ def analyze_data():
                 "name": "Member Multi-Currency",
                 "count": multi_currency_count
             }
+            logger.info("Scenario 9 finished.", extra={'extra_info': {
+                "event_type": "rule_detection",
+                "scenario_id": 9,
+                "scenario_name": "Member Multi-Currency",
+                "anomalies_found": multi_currency_count
+            }})
             if multi_currency_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:25]):
                     anomalies.append({
@@ -644,6 +730,12 @@ def analyze_data():
                 "name": "Gender-Procedure Mismatch",
                 "count": gender_mismatch_count
             }
+            logger.info("Scenario 10 finished.", extra={'extra_info': {
+                "event_type": "rule_detection",
+                "scenario_id": 10,
+                "scenario_name": "Gender-Procedure Mismatch",
+                "anomalies_found": gender_mismatch_count
+            }})
             if gender_mismatch_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:30]):
                     anomalies.append({
@@ -669,6 +761,12 @@ def analyze_data():
                 "name": "Early Invoice Date",
                 "count": early_invoice_count
             }
+            logger.info("Scenario 11 finished.", extra={'extra_info': {
+                "event_type": "rule_detection",
+                "scenario_id": 11,
+                "scenario_name": "Early Invoice Date",
+                "anomalies_found": early_invoice_count
+            }})
             if early_invoice_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:25]):
                     anomalies.append({
@@ -694,6 +792,12 @@ def analyze_data():
                 "name": "Adult Pediatric Diagnosis",
                 "count": adult_pediatric_count
             }
+            logger.info("Scenario 12 finished.", extra={'extra_info': {
+                "event_type": "rule_detection",
+                "scenario_id": 12,
+                "scenario_name": "Adult Pediatric Diagnosis",
+                "anomalies_found": adult_pediatric_count
+            }})
             if adult_pediatric_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:20]):
                     anomalies.append({
@@ -719,6 +823,12 @@ def analyze_data():
                 "name": "Multiple Payee Types",
                 "count": multiple_payee_count
             }
+            logger.info("Scenario 13 finished.", extra={'extra_info': {
+                "event_type": "rule_detection",
+                "scenario_id": 13,
+                "scenario_name": "Multiple Payee Types",
+                "anomalies_found": multiple_payee_count
+            }})
             if multiple_payee_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:15]):
                     anomalies.append({
@@ -744,6 +854,12 @@ def analyze_data():
                 "name": "Excessive Diagnoses",
                 "count": excessive_diagnoses_count
             }
+            logger.info("Scenario 14 finished.", extra={'extra_info': {
+                "event_type": "rule_detection",
+                "scenario_id": 14,
+                "scenario_name": "Excessive Diagnoses",
+                "anomalies_found": excessive_diagnoses_count
+            }})
             if excessive_diagnoses_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:18]):
                     anomalies.append({
@@ -774,6 +890,12 @@ def analyze_data():
                 "name": "Hospital Benefits from Non-Hospital Providers",
                 "count": hospital_benefit_count
             }
+            logger.info("Scenario 15 finished.", extra={'extra_info': {
+                "event_type": "rule_detection",
+                "scenario_id": 15,
+                "scenario_name": "Hospital Benefits from Non-Hospital Providers",
+                "anomalies_found": hospital_benefit_count
+            }})
             if hospital_benefit_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:25]):
                     anomalies.append({
@@ -804,6 +926,12 @@ def analyze_data():
                 "name": "Paid Claims from Veterinary Providers",
                 "count": veterinary_count
             }
+            logger.info("Scenario 16 finished.", extra={'extra_info': {
+                "event_type": "rule_detection",
+                "scenario_id": 16,
+                "scenario_name": "Paid Claims from Veterinary Providers",
+                "anomalies_found": veterinary_count
+            }})
             if veterinary_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:15]):
                     anomalies.append({
@@ -834,6 +962,12 @@ def analyze_data():
                 "name": "Multiple MRI/CT Same Day",
                 "count": multiple_mri_count
             }
+            logger.info("Scenario 17 finished.", extra={'extra_info': {
+                "event_type": "rule_detection",
+                "scenario_id": 17,
+                "scenario_name": "Multiple MRI/CT Same Day",
+                "anomalies_found": multiple_mri_count
+            }})
             if multiple_mri_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:20]):
                     anomalies.append({
@@ -864,6 +998,12 @@ def analyze_data():
                 "name": "Placeholder Scenario",
                 "count": placeholder_count
             }
+            logger.info("Scenario 18 finished.", extra={'extra_info': {
+                "event_type": "rule_detection",
+                "scenario_id": 18,
+                "scenario_name": "Placeholder Scenario",
+                "anomalies_found": placeholder_count
+            }})
             # No anomalies generated for placeholder scenario
         
         if 19 in scenarios:
@@ -880,6 +1020,12 @@ def analyze_data():
                 "name": "Multiple Screenings Same Year",
                 "count": multiple_screenings_count
             }
+            logger.info("Scenario 19 finished.", extra={'extra_info': {
+                "event_type": "rule_detection",
+                "scenario_id": 19,
+                "scenario_name": "Multiple Screenings Same Year",
+                "anomalies_found": multiple_screenings_count
+            }})
             if multiple_screenings_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:22]):
                     anomalies.append({
@@ -910,6 +1056,12 @@ def analyze_data():
                 "name": "Dialysis Without Kidney Diagnosis",
                 "count": dialysis_count
             }
+            logger.info("Scenario 20 finished.", extra={'extra_info': {
+                "event_type": "rule_detection",
+                "scenario_id": 20,
+                "scenario_name": "Dialysis Without Kidney Diagnosis",
+                "anomalies_found": dialysis_count
+            }})
             if dialysis_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:18]):
                     anomalies.append({
@@ -940,6 +1092,12 @@ def analyze_data():
                 "name": "Unusual Dentistry Claims",
                 "count": dentistry_count
             }
+            logger.info("Scenario 21 finished.", extra={'extra_info': {
+                "event_type": "rule_detection",
+                "scenario_id": 21,
+                "scenario_name": "Unusual Dentistry Claims",
+                "anomalies_found": dentistry_count
+            }})
             if dentistry_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:16]):
                     anomalies.append({
@@ -970,6 +1128,12 @@ def analyze_data():
                 "name": "Invalid Migraine Claims",
                 "count": migraine_count
             }
+            logger.info("Scenario 22 finished.", extra={'extra_info': {
+                "event_type": "rule_detection",
+                "scenario_id": 22,
+                "scenario_name": "Invalid Migraine Claims",
+                "anomalies_found": migraine_count
+            }})
             if migraine_count > 0 and claim_ids:
                 for idx, claim_id in enumerate(claim_ids[:14]):
                     anomalies.append({
@@ -1196,6 +1360,12 @@ def analyze_ml():
         
         # Generate unique job ID
         job_id = str(uuid.uuid4())
+        
+        logger.info("ML analysis started.", extra={'extra_info': {
+            "event_type": "ml_detection_start",
+            "job_id": job_id,
+            "file_path": file_path
+        }})
         
         # Initialize processing status
         processing_status[job_id] = ProcessingStatus(job_id)
