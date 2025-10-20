@@ -3,10 +3,11 @@ import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Progress } from './ui/progress';
 import { Alert, AlertDescription, AlertTitle } from './ui/alert';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
 import { Badge } from './ui/badge';
 import { Rocket, PartyPopper, AlertTriangle, Info } from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
 import API_CONFIG from '../config/api';
 import { useStore } from '../store/useStore';
 
@@ -284,7 +285,22 @@ const MLAnalysis = () => {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Anomalies Found</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger className="cursor-help">
+                    <span className="flex items-center gap-1">
+                      Anomalies Found <Info className="w-3 h-3" />
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p className="max-w-xs">
+                      The total number of claims identified as potential fraud, waste, or abuse by the ML model.
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-red-600">{results.kpi.total_anomalies.toLocaleString()}</div>
@@ -292,7 +308,22 @@ const MLAnalysis = () => {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Detection Rate</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger className="cursor-help">
+                    <span className="flex items-center gap-1">
+                      Detection Rate <Info className="w-3 h-3" />
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p className="max-w-xs">
+                      The percentage of total claims that were flagged as anomalous. (Anomalies Found / Total Records)
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{results.kpi.detection_rate}%</div>
@@ -300,7 +331,22 @@ const MLAnalysis = () => {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">High Priority Cases</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger className="cursor-help">
+                    <span className="flex items-center gap-1">
+                      High Priority Cases <Info className="w-3 h-3" />
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p className="max-w-xs">
+                      The number of anomalies classified as 'Global' or 'Both', which are typically the highest risk and should be investigated first.
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-orange-500">{results.kpi.high_priority_cases.toLocaleString()}</div>
@@ -351,10 +397,56 @@ const MLAnalysis = () => {
               <TableRow>
                 <TableHead>Claim ID</TableHead>
                 <TableHead>Provider ID</TableHead>
-                <TableHead>Risk Score</TableHead>
-                <TableHead>Anomaly Type</TableHead>
-                <TableHead>Explanation</TableHead>
-              </TableRow>
+                                <TableHead>
+                                  <TooltipProvider>
+                                    <Tooltip>
+                                      <TooltipTrigger className="cursor-help">
+                                        <span className="flex items-center gap-1">
+                                          Risk Score <Info className="w-3 h-3" />
+                                        </span>
+                                      </TooltipTrigger>
+                                      <TooltipContent>
+                                        <p className="max-w-xs">
+                                          A score from 0 to 1 indicating the model's confidence that the claim is an anomaly. Higher scores indicate a higher risk.
+                                        </p>
+                                      </TooltipContent>
+                                    </Tooltip>
+                                  </TooltipProvider>
+                                </TableHead>
+                                <TableHead>
+                                  <TooltipProvider>
+                                    <Tooltip>
+                                      <TooltipTrigger className="cursor-help">
+                                        <span className="flex items-center gap-1">
+                                          Anomaly Type <Info className="w-3 h-3" />
+                                        </span>
+                                      </TooltipTrigger>
+                                      <TooltipContent>
+                                        <p className="max-w-xs">
+                                          <strong>Global:</strong> Unusual compared to the entire dataset.<br />
+                                          <strong>Local:</strong> Unusual compared to its peer group.<br />
+                                          <strong>Both:</strong> Anomalous in both contexts.
+                                        </p>
+                                      </TooltipContent>
+                                    </Tooltip>
+                                  </TooltipProvider>
+                                </TableHead>
+                                <TableHead>
+                                  <TooltipProvider>
+                                    <Tooltip>
+                                      <TooltipTrigger className="cursor-help">
+                                        <span className="flex items-center gap-1">
+                                          Explanation <Info className="w-3 h-3" />
+                                        </span>
+                                      </TooltipTrigger>
+                                      <TooltipContent>
+                                        <p className="max-w-xs">
+                                          The top features contributing to the anomaly detection. 'Global' compares the claim to the entire dataset, while 'Local' compares it to its peer group.
+                                        </p>
+                                      </TooltipContent>
+                                    </Tooltip>
+                                  </TooltipProvider>
+                                </TableHead>              </TableRow>
             </TableHeader>
             <TableBody>
               {results.flagged_records.map((record, index) => (
