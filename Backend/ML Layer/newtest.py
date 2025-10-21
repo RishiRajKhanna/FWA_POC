@@ -917,7 +917,7 @@ class ExplainabilityEngine:
                 idx, df_encoded, numeric_cols, df_original, feature_encoder, reverse_mapping
             )
             features_str = ", ".join([f"{feat}: {z:.2f}" for feat, z in top_global_features[:2]])
-            global_exp = f"{anomaly['global_cae_score']:.3f} ({features_str})"
+            global_exp = f"{anomaly['global_cae_score']:.2f} ({features_str})"
         
         # Local explanation - show score and top 2 features with z-scores
         if 'Local' in anomaly['Anomaly_Type'] or 'Both' in anomaly['Anomaly_Type']:
@@ -926,7 +926,7 @@ class ExplainabilityEngine:
                 numeric_cols, feature_encoder, reverse_mapping
             )
             features_str = ", ".join([f"{feat}: {z:.2f}" for feat, z in top_local_features[:2]])
-            local_exp = f"{anomaly['local_ensemble_score']:.3f} ({features_str})"
+            local_exp = f"{anomaly['local_ensemble_score']:.2f} ({features_str})"
         
         return global_exp, local_exp, [f[0] for f in top_global_features], [f[0] for f in top_local_features]
     
