@@ -54,6 +54,25 @@ interface FlaggedRecord {
   Local_Explanation: string;
 }
 
+const CustomTooltip = ({ active, payload, label, totalAnomalies }: any) => {
+  if (active && payload && payload.length) {
+    const cases = payload.find((p: any) => p.dataKey === 'cases')?.value || 0;
+    const avgRiskScore = payload.find((p: any) => p.dataKey === 'avg_risk_score')?.value || 0;
+    const percentage = totalAnomalies > 0 ? ((cases / totalAnomalies) * 100).toFixed(1) : 0;
+
+    return (
+      <div className="custom-tooltip bg-white p-3 border border-gray-300 rounded-md shadow-lg z-50">
+        <p className="label text-lg font-semibold mb-1">{label}</p>
+        <p className="intro text-gray-700">Anomalies Found: <span className="font-medium">{cases.toLocaleString()}</span></p>
+        <p className="intro text-gray-700">Avg. Risk Score: <span className="font-medium">{avgRiskScore.toFixed(2)}</span></p>
+        <p className="desc text-gray-700">Contribution: <span className="font-medium text-blue-600">{percentage}%</span> of total anomalies</p>
+      </div>
+    );
+  }
+
+  return null;
+};
+
 const MLAnalysis = () => {
   const { mlAnalysisResults, setMlAnalysisResults } = useStore();
   const [jobId, setJobId] = useState<string | null>(null);
@@ -367,7 +386,7 @@ const MLAnalysis = () => {
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis type="number" />
                 <YAxis type="category" dataKey="area" width={150} />
-                <Tooltip />
+                <RechartsTooltip cursor={{ fill: 'transparent' }} content={<CustomTooltip totalAnomalies={results.kpi.total_anomalies} />} wrapperStyle={{ zIndex: 9999 }} />
                 <Legend />
                 <Bar dataKey="cases" fill="#8884d8" name="Number of Cases" />
                 <Bar dataKey="avg_risk_score" fill="#82ca9d" name="Avg. Risk Score" />
