@@ -394,36 +394,52 @@ const MLAnalysis = () => {
         </CardHeader>
         <CardContent>
           <Accordion type="single" collapsible className="w-full space-y-4">
-            <AccordionItem value="item-1" className="border-0 rounded-lg hover:shadow-lg transition-shadow bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200">
-              <AccordionTrigger className="p-4 hover:no-underline">
-                <span className="text-lg font-semibold text-purple-800">🌐 Global Anomaly Detection</span>
-              </AccordionTrigger>
-              <AccordionContent className="px-4">
-                <div className="space-y-3 pt-0 pb-4">
-                  <h4 className="font-semibold text-md text-purple-700">Why This Matters:</h4>
-                  <p className="text-gray-600">Uncovers systemic irregularities across all claims, enabling organizations to detect emerging fraud trends that rule-based systems may miss.</p>
-                  <h4 className="font-semibold text-md text-purple-700">How It Works:</h4>
-                  <p className="text-gray-600">A Convolutional Autoencoder (CAE) learns normal claim patterns across the entire dataset by compressing and reconstructing each claim. Claims with significant reconstruction errors are flagged as global anomalies.</p>
-                  <h4 className="font-semibold text-md text-purple-700">Real-World Example:</h4>
-                  <p className="text-gray-600">A claim is submitted before the actual treatment date — a pattern that may indicate billing errors or potential fraud. The CAE flags this as a global anomaly, highlighting a systemic issue that spans multiple providers or regions.</p>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-2" className="border-0 rounded-lg hover:shadow-lg transition-shadow bg-gradient-to-br from-green-50 to-green-100 border-green-200">
-              <AccordionTrigger className="p-4 hover:no-underline">
-                <span className="text-lg font-semibold text-green-800">📍 Local Anomaly Detection</span>
-              </AccordionTrigger>
-              <AccordionContent className="px-4">
-                <div className="space-y-3 pt-0 pb-4">
-                  <h4 className="font-semibold text-md text-green-700">Why This Matters:</h4>
-                  <p className="text-gray-600">Identifies subtle, context-specific anomalies within clusters of claims, revealing micro-level irregularities that global models may overlook.</p>
-                  <h4 className="font-semibold text-md text-green-700">How It Works:</h4>
-                  <p className="text-gray-600">Models such as HDBSCAN, LOF, One-Class SVM, and Isolation Forest compare claims to their closest peers, flagging claims that deviate from local norms.</p>
-                  <h4 className="font-semibold text-md text-green-700">Real-World Example:</h4>
-                  <p className="text-gray-600">A male patient billed for a mammogram stands out within gender-specific procedure clusters. Local anomaly detection flags this behavior, helping identify potential procedural errors or inappropriate billing at the provider level.</p>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
+            <div className="border border-gray-300 rounded-lg overflow-hidden">
+              <AccordionItem value="item-1" className="border-0 hover:shadow-lg transition-shadow bg-gradient-to-br from-purple-50 to-purple-100">
+                <AccordionTrigger className="p-4 hover:no-underline">
+                  <span className="text-lg font-semibold text-purple-800">🌐 Global Anomaly Detection</span>
+                </AccordionTrigger>
+                <AccordionContent className="px-4">
+                  <div className="space-y-6 pt-0 pb-4">
+                    <div className="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-400">
+                      <h4 className="font-semibold text-md text-purple-700 mb-2">Why This Matters:</h4>
+                      <p className="text-purple-800">Uncovers systemic irregularities across all claims, enabling organizations to detect emerging fraud trends that rule-based systems may miss.</p>
+                    </div>
+                    <div className="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-400">
+                      <h4 className="font-semibold text-md text-purple-700 mb-2">How It Works:</h4>
+                      <p className="text-purple-800">A Convolutional Autoencoder (CAE) learns normal claim patterns across the entire dataset by compressing and reconstructing each claim. Claims with significant reconstruction errors are flagged as global anomalies.</p>
+                    </div>
+                    <div className="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-400">
+                      <h4 className="font-semibold text-md text-purple-700 mb-2">Real-World Example:</h4>
+                      <p className="text-purple-800">A claim is submitted before the actual treatment date — a pattern that may indicate billing errors or potential fraud. The CAE flags this as a global anomaly, highlighting a systemic issue that spans multiple providers or regions.</p>
+                    </div>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            </div>
+            <div className="border border-gray-300 rounded-lg overflow-hidden">
+              <AccordionItem value="item-2" className="border-0 hover:shadow-lg transition-shadow bg-gradient-to-br from-green-50 to-green-100">
+                <AccordionTrigger className="p-4 hover:no-underline">
+                  <span className="text-lg font-semibold text-green-800">📍 Local Anomaly Detection</span>
+                </AccordionTrigger>
+                <AccordionContent className="px-4">
+                  <div className="space-y-6 pt-0 pb-4">
+                    <div className="bg-green-50 p-4 rounded-lg border-l-4 border-green-400">
+                      <h4 className="font-semibold text-md text-gray-900 mb-2">Why This Matters:</h4>
+                      <p className="text-green-800">Identifies subtle, context-specific anomalies within clusters of claims, revealing micro-level irregularities that global models may overlook.</p>
+                    </div>
+                    <div className="bg-green-50 p-4 rounded-lg border-l-4 border-green-400">
+                      <h4 className="font-semibold text-md text-gray-900 mb-2">How It Works:</h4>
+                      <p className="text-green-800">Models such as HDBSCAN, LOF, One-Class SVM, and Isolation Forest compare claims to their closest peers, flagging claims that deviate from local norms.</p>
+                    </div>
+                    <div className="bg-green-50 p-4 rounded-lg border-l-4 border-green-400">
+                      <h4 className="font-semibold text-md text-gray-900 mb-2">Real-World Example:</h4>
+                      <p className="text-green-800">A male patient billed for a mammogram stands out within gender-specific procedure clusters. Local anomaly detection flags this behavior, helping identify potential procedural errors or inappropriate billing at the provider level.</p>
+                    </div>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            </div>
           </Accordion>
         </CardContent>
       </Card>
